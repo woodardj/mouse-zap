@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Spark/SparkScript.cs">
     <Files>
-      <File FileName="Assets/Wire/WireScript.cs" Line="4" Column="18" />
-      <File FileName="Assets/Spark/SparkScript.cs" Line="52" Column="38" />
+      <File FileName="Assets/Wire/WireScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Spark/SparkScript.cs" Line="35" Column="46" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

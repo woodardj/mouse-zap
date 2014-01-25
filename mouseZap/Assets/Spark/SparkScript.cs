@@ -23,6 +23,21 @@ public class SparkScript : MonoBehaviour {
 	}
 	void OnTriggerExit (Collider other){
 		_collidedWires.Remove(other.gameObject);
+		if (_collidedWires.Count == 0) {
+			// we need to return to this wire
+			Debug.Log ("Left all wires!!");
+			if (other.gameObject.transform.localScale.x > 1) {
+				// this is a left right wire reset Z
+				Vector3 newPos = this.transform.localPosition;
+				newPos.z = other.gameObject.transform.position.z;
+				this.transform.localPosition = newPos;
+			} else if (other.gameObject.transform.localScale.z > 1) {
+				// this is a left right wire reset X
+				Vector3 newPos = this.transform.localPosition;
+				newPos.x = other.gameObject.transform.position.x;
+				this.transform.localPosition = newPos;
+			}
+		}
 //		Debug.Log ("trigger exit object:" + other.gameObject.ToString());
 	}
 
@@ -39,9 +54,9 @@ public class SparkScript : MonoBehaviour {
 //			RaycastHit hit; 
 //			// If the ray collides with something solid in the scene, the "hit" structure will be filled with collision information
 //			if( Physics.Raycast( ray, out hit ) )
-//			{
-				// a collision occured.
+//			{  // a collision occured.
 //				Debug.LogWarning("Hit this object:" + wire.transform.gameObject.ToString());
+
 				if (wire.transform.gameObject.CompareTag("Wire") == true) {
 					// hit a wire. // decide if we can move left or right on this wire
 					if (wire.transform.localScale.x > 1) {
