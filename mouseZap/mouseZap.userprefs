@@ -1,8 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Fan/FanControl.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Wind/WindBehavior.js">
     <Files>
-      <File FileName="Assets/Fan/FanControl.js" Line="5" Column="1" />
+      <File FileName="Assets/Fan/FanControl.js" Line="33" Column="2" />
+      <File FileName="Assets/Wind/WindBehavior.js" Line="20" Column="2" />
+      <File FileName="Assets/Spark/SparkScript.cs" Line="16" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
