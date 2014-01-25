@@ -1,9 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Spark/SparkScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/FanControl.js">
     <Files>
-      <File FileName="Assets/Managers/GameManager.cs" Line="58" Column="21" />
-      <File FileName="Assets/Spark/SparkScript.cs" Line="10" Column="36" />
+      <File FileName="Assets/FanControl.js" Line="17" Column="48" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
