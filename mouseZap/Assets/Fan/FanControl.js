@@ -15,11 +15,19 @@ function Update () {
 	
 	if (Input.GetKey("left") || Input.GetKey("right")) {
 		if (Input.GetKey("left")) var dir = -1; else dir = 1;
-		transform.Rotate( dir * rotate_speed * Vector3.right * Time.deltaTime);
+		transform.Rotate( dir * rotate_speed * Vector3.up * Time.deltaTime);
 	}
 }
 
 public function getAngle(){
-	
-	return Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z);
+	//this will change axes if we use an upright cube instead of a cylinder.
+	return transform.eulerAngles.y;
+}
+
+public function getDirection(){
+	return transform.forward;
+}
+
+public function makeWind(){
+	return transform.forward * strength;
 }
