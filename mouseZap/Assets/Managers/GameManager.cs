@@ -90,7 +90,15 @@ public class GameManager : MonoBehaviour {
 		floor1.transform.renderer.material.color = new Color (0f, 0f, 0f, 0f);
 	}
 
+	public void ActivateFan() {
+		// turn on all wind particle renderers
 
+
+	}
+
+	public void DeactivateFan() {
+		// turn off all wind particle renderers
+	}
 
 
 

@@ -4,11 +4,7 @@ using System.Collections.Generic;
 
 public class SparkScript : MonoBehaviour {
 
-
-	public GameObject test;
-
 	public float movementSpeed = 0.3f;
-
 
 	private List<GameObject> _collidedWires; // keeps a list of all wire gameObjects that are currently collided with the spark.
 
@@ -103,8 +99,13 @@ public class SparkScript : MonoBehaviour {
 					}
 				}
 			}
+			// play sfx while moving
+			audio.Play();
+		} else {
+			// no sfx 
+			audio.Stop();
 		}
-
+		
 		if (Input.GetButtonDown ("Jump")) {
 			// user pressed the activate button
 			// check for something to activate
