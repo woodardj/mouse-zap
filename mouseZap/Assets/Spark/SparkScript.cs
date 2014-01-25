@@ -5,12 +5,12 @@ using System.Collections.Generic;
 public class SparkScript : MonoBehaviour {
 
 
-
+	public GameObject test;
 
 	public float movementSpeed = 0.3f;
 
 
-	private List<GameObject> _collidedWires;
+	private List<GameObject> _collidedWires; // keeps a list of all wire gameObjects that are currently collided with the spark.
 
 	// Use this for initialization
 	void Start () {
@@ -18,21 +18,42 @@ public class SparkScript : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider other){
+		// store the collided object
 		_collidedWires.Add(other.gameObject);
-//		Debug.Log ("trigger enter object:" + other.gameObject.ToString());
+
+		// turn on light if touching object
+		if (other.gameObject.CompareTag("Light") == true) {
+			GameManager.instance.ActivateLight(other.gameObject);
+//			Activatable objectScript other.gameObject.GetComponent<Activatable>();
+		}
 	}
 	void OnTriggerExit (Collider other){
+		// remove the collided object
 		_collidedWires.Remove(other.gameObject);
-		if (_collidedWires.Count == 0) {
+
+		// turn off light if leaving
+		if (other.gameObject.CompareTag("Light") == true) {
+			GameManager.instance.DeactivateLight(other.gameObject);
+		}
+
+
+		// make sure the spark never leaves all wires.
+		bool leftAllWires = true;
+		foreach (GameObject wire in _collidedWires) {
+			if (wire.transform.gameObject.CompareTag("Wire") == true) {
+				leftAllWires = false;
+			}
+		}
+		if (leftAllWires == true) {
 			// we need to return to this wire
 			Debug.Log ("Left all wires!!");
 			if (other.gameObject.transform.localScale.x > 1) {
-				// this is a left right wire reset Z
+				// this is a left right wire, reset Z
 				Vector3 newPos = this.transform.localPosition;
 				newPos.z = other.gameObject.transform.position.z;
 				this.transform.localPosition = newPos;
 			} else if (other.gameObject.transform.localScale.z > 1) {
-				// this is a left right wire reset X
+				// this is a up down wire, reset X
 				Vector3 newPos = this.transform.localPosition;
 				newPos.x = other.gameObject.transform.position.x;
 				this.transform.localPosition = newPos;
@@ -46,17 +67,7 @@ public class SparkScript : MonoBehaviour {
 		float h = Input.GetAxis("Horizontal") * movementSpeed;
 		float v = Input.GetAxis("Vertical") * movementSpeed;
 		if ((h != 0f) | (v != 0f)) {
-			// move left or right if able
 			foreach (GameObject wire in _collidedWires) {
-
-//			// ray cast directly downward and get all wires that collide 
-//			Ray ray = new Ray(this.transform.position, Vector3.down );
-//			RaycastHit hit; 
-//			// If the ray collides with something solid in the scene, the "hit" structure will be filled with collision information
-//			if( Physics.Raycast( ray, out hit ) )
-//			{  // a collision occured.
-//				Debug.LogWarning("Hit this object:" + wire.transform.gameObject.ToString());
-
 				if (wire.transform.gameObject.CompareTag("Wire") == true) {
 					// hit a wire. // decide if we can move left or right on this wire
 					if (wire.transform.localScale.x > 1) {
@@ -83,6 +94,12 @@ public class SparkScript : MonoBehaviour {
 				}
 			}
 		}
-		
+
+		if (Input.GetButtonDown ("Jump")) {
+			// user pressed the activate button
+			// check for something to activate
+
+
+		}
 	}
 }
