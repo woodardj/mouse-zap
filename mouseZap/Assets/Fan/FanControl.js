@@ -1,6 +1,6 @@
-﻿#pragma strict
-
-var strength = 0;
+﻿
+var rotate_speed = 10;
+var strength = 5;
 
 function Start () {
 	Debug.Log("hi");
@@ -13,8 +13,13 @@ function Update () {
 		strength = Mathf.Clamp( strength - 1 , 0, 100 );
 	}
 	
-	if (Input.GetKey("left")) {
-		//this.hingeJoint.angle = this.hingeJoint.angle;
+	if (Input.GetKey("left") || Input.GetKey("right")) {
+		if (Input.GetKey("left")) var dir = -1; else dir = 1;
+		transform.Rotate( dir * rotate_speed * Vector3.right * Time.deltaTime);
 	}
-	Debug.Log(strength);
+}
+
+public function getAngle(){
+	
+	return Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z);
 }
