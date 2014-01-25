@@ -15,11 +15,18 @@ public class SparkScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_collidedWires = new List<GameObject> ();
+		this.renderer.enabled = false; // start hidden, animation will reveal the spark.
+//		animation["SpawnSpark"].wrapMode = WrapMode.Once;
+//		animation.Play("SpawnSpark");
 	}
 
 	void OnTriggerEnter (Collider other){
-		// store the collided object
-		_collidedWires.Add(other.gameObject);
+//		Debug.Log("OnTriggerEnter!");
+
+		if (other.gameObject.CompareTag("Wire") == true) {
+			// store the collided wire
+			_collidedWires.Add(other.gameObject);
+		}
 
 		// turn on light if touching object
 		if (other.gameObject.CompareTag("Light") == true) {
@@ -28,8 +35,12 @@ public class SparkScript : MonoBehaviour {
 		}
 	}
 	void OnTriggerExit (Collider other){
-		// remove the collided object
-		_collidedWires.Remove(other.gameObject);
+//		Debug.Log("OnTriggerExit!");
+
+		if (other.gameObject.CompareTag("Wire") == true) {
+			// remove the collided object
+			_collidedWires.Remove(other.gameObject);
+		}
 
 		// turn off light if leaving
 		if (other.gameObject.CompareTag("Light") == true) {
@@ -38,39 +49,38 @@ public class SparkScript : MonoBehaviour {
 
 
 		// make sure the spark never leaves all wires.
-		bool leftAllWires = true;
-		foreach (GameObject wire in _collidedWires) {
-			if (wire.transform.gameObject.CompareTag("Wire") == true) {
-				leftAllWires = false;
-			}
-		}
-		if (leftAllWires == true) {
+		if (_collidedWires.Count == 0) {
 			// we need to return to this wire
 			Debug.Log ("Left all wires!!");
-			if (other.gameObject.transform.localScale.x > 1) {
+			if (other.gameObject.transform.localScale.x > other.gameObject.transform.localScale.z) {
 				// this is a left right wire, reset Z
 				Vector3 newPos = this.transform.localPosition;
 				newPos.z = other.gameObject.transform.position.z;
 				this.transform.localPosition = newPos;
-			} else if (other.gameObject.transform.localScale.z > 1) {
+			} else if (other.gameObject.transform.localScale.z > other.gameObject.transform.localScale.x) {
 				// this is a up down wire, reset X
 				Vector3 newPos = this.transform.localPosition;
 				newPos.x = other.gameObject.transform.position.x;
 				this.transform.localPosition = newPos;
 			}
 		}
-//		Debug.Log ("trigger exit object:" + other.gameObject.ToString());
 	}
 
 	// Update is called once per frame
 	void Update () {
+		if (GameManager.instance.freezePlayer == true) {
+			// don't allow movement
+			Debug.Log("don't allow movement");
+			return;
+		}
+
 		float h = Input.GetAxis("Horizontal") * movementSpeed;
 		float v = Input.GetAxis("Vertical") * movementSpeed;
 		if ((h != 0f) | (v != 0f)) {
 			foreach (GameObject wire in _collidedWires) {
 				if (wire.transform.gameObject.CompareTag("Wire") == true) {
 					// hit a wire. // decide if we can move left or right on this wire
-					if (wire.transform.localScale.x > 1) {
+					if (wire.transform.localScale.x > wire.transform.localScale.z) {
 						// move 
 						Vector3 newPosition = this.transform.position + new Vector3(h,0f,0f);
 						// clamp position
@@ -80,7 +90,7 @@ public class SparkScript : MonoBehaviour {
 						                            (wire.transform.localPosition.x - (wire.transform.localScale.x * 0.5f)),
 						                            (wire.transform.localPosition.x + (wire.transform.localScale.x * 0.5f)));
 						this.transform.position = newPosition;
-					} else if (wire.transform.localScale.z > 1) {
+					} else if (wire.transform.localScale.z > wire.transform.localScale.x) {
 						// move 
 						Vector3 newPosition = this.transform.position + new Vector3(0f,0f,v);
 						// clamp position
@@ -101,5 +111,12 @@ public class SparkScript : MonoBehaviour {
 
 
 		}
+	}
+
+
+	void sparkHasSpawned () {
+		// stop the spawning animation
+		gameObject.GetComponent<Animator> ().SetBool ("spawning", false);
+		gameObject.renderer.enabled = true;
 	}
 }
