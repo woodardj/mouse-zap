@@ -1,8 +1,8 @@
 ﻿#pragma strict
 
 var airparticle : GameObject;
-var roomXSize : int;
-var roomZSize : int;
+var roomXSize : float;
+var roomZSize : float;
 var density : float = 1.0;
 
 function Start(){
