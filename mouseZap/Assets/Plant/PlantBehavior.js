@@ -27,7 +27,7 @@ function Update () {
 
 function Hint1(){
 	Debug.Log("hint1 yielding");
-	yield WaitForSeconds(20);
+	yield WaitForSeconds(30);
 	if(firstBlood){
 		(GameObject.Find("Blades").GetComponent("FanControl") as FanControl).TalkHint1();
 	}
@@ -76,6 +76,11 @@ function death(){
 		animation.wrapMode = WrapMode.Once;
 		animation.Play("Death");
 	}
+}
+
+function scareMouse(){
+	(GameObject.Find("Blades").GetComponent("FanControl") as FanControl).TalkSuccess();
+	GameObject.Find("Mouse").animation.Play("MouseEscape");
 }
 
 function nextLevel(){

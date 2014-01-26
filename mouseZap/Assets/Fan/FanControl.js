@@ -27,14 +27,14 @@ function Start () {
 }
 
 function Talk1(){
-	yield WaitForSeconds(5.5);
+	yield WaitForSeconds(5.25);
 	ShowSpeechBubble(transform, "I'll get you, mouse!", 5.0);
 	StartCoroutine("Talk2");
 }
 
 function Talk2(){
-	yield WaitForSeconds(5.5);
-	ShowSpeechBubble(transform, "With the power of the wind!", 5.0);
+	yield WaitForSeconds(5.25);
+	ShowSpeechBubble(transform, "With the power of the air!", 5.0);
 }
 
 public function TalkEncourage(){
@@ -42,11 +42,18 @@ public function TalkEncourage(){
 }
 
 public function TalkHint1(){
-	ShowSpeechBubble(transform, "Maybe we need MORE POWER.", 5.0);
+	if(strength < 85){
+		ShowSpeechBubble(transform, "Maybe we need MORE POWER.", 5.0);
+	}
 }
 
 public function TalkHint2(){
 	ShowSpeechBubble(transform, "That's not working. What's this to my left?", 5.0);
+}
+
+public function TalkSuccess(){
+	yield WaitForSeconds(1.0);
+	ShowSpeechBubble(transform, "Run varmint! Let's chase him!", 5.0);
 }
 
 function Update () {
