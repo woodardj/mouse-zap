@@ -34,7 +34,6 @@ public class CanOpenerScript : MonoBehaviour {
 			GameObject[] allCans = GameObject.FindGameObjectsWithTag("Can");
 			for (int i = 0; i < allCans.Length; i++) {
 				GameObject can = allCans[i];
-				Vector3 newRotation = can.transform.rotation.eulerAngles;
 				can.transform.Rotate(0f,h,0f);
 //				if (can.transform.localRotation.eulerAngles.z > 0) 
 //					newRotation.x +=h;

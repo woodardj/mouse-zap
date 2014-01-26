@@ -18,6 +18,7 @@ public class SparkScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		audio.Stop();
 		_collidedWires = new List<GameObject> ();
 		this.renderer.enabled = false; // start hidden, animation will reveal the spark.
 //		animation["SpawnSpark"].wrapMode = WrapMode.Once;

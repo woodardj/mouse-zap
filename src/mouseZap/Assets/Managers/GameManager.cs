@@ -120,6 +120,7 @@ public class GameManager : MonoBehaviour {
 
 	void PlayWiresMusic() {
 		// play wires sound
+		Debug.Log ("Playing wires music");
 		GameManager.instance.audio.clip = wiresMusic;
 		GameManager.instance.audio.Play ();
 	}
