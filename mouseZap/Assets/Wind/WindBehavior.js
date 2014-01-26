@@ -1,6 +1,6 @@
 ﻿
 function Start(){
-	Debug.Log("ahoy!");
+	//Debug.Log("ahoy!");
 }
 
 function blowinInTheWind (other : Collider) {
@@ -8,7 +8,11 @@ function blowinInTheWind (other : Collider) {
 	if (other.CompareTag("Fan") == true){
 		var blower = other.gameObject.GetComponent("FanControl").makeWind();
 		rigidbody.AddForce(blower);
-	}	
+	}else if (other.CompareTag("Drafty") == true) {
+		if(other.gameObject.GetComponent("DraftBehavior").particleEscapes()){
+			UnityEngine.Object.Destroy(gameObject);
+		}
+	}
 };
 
 //OnTriggerEnter = blowinInTheWind;
