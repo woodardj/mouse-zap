@@ -18,4 +18,6 @@ public class MenuGUIManager : MonoBehaviour {
 			CameraFade.StartAlphaFade( Color.white, false, 1.5f, 0f, () => { Application.LoadLevel("LightedLiving");} );
 		}
 	}
+
+
 }
