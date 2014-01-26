@@ -98,6 +98,17 @@ public class GameManager : MonoBehaviour {
 		freezePlayer = false;
 	}
 
+	public void StartKitchenCanOpener () {
+		// sound fx
+//		PlayKitchenMusic ();
+
+		// Show speech bubble
+		spark.GetComponent<SparkScript>().ShowSpeechBubble(transform, "Mwah hah hah hah!", 5.0f);
+
+		// player can't move the spark, since they have control of the can opener
+		freezePlayer = true;
+	}
+
 	void PlayWiresMusic() {
 		// play wires sound
 		GameManager.instance.audio.clip = wiresMusic;
