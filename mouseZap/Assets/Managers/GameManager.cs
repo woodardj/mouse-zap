@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour {
 	public GameObject brokenWire1;
 	public GameObject spark;
 
+	public AudioClip lightMusic;
+	public AudioClip wiresMusic;
+
 	public bool freezePlayer;
 
 
@@ -49,7 +52,6 @@ public class GameManager : MonoBehaviour {
 		floorLivingRoom.renderer.material.color = new Color (0f, 0f, 0f, 0f);
 		floorKitchen.renderer.material.color = new Color (0f, 0f, 0f, 0f);
 
-		StartRoom1 ();
 	}
 	
 	// Update is called once per frame
@@ -57,27 +59,44 @@ public class GameManager : MonoBehaviour {
 	
 	}
 
+	public void StartLivingRoomWires () {
+		// sound fx
+		PlayWiresMusic ();
 
-	public void StartRoom1 () {
 		// animate stuff before the player has control
 		// move the mouse
 
+		//		Debug.Log ("StartingRoom1");
 
-//		Debug.Log ("StartingRoom1");
-
-
+		
 		// flash and remove part of a wire
 		brokenWire1.GetComponent<Animator>().SetBool ("wireBreaking", true);
-//		floor1.GetComponent<Animator> ().SetBool ("wireBreaking", true);
+		//		floor1.GetComponent<Animator> ().SetBool ("wireBreaking", true);
 		spark.GetComponent<Animator> ().SetBool ("spawning", true);
 		
 		// lights go out
 		floorLivingRoom.renderer.material.color = new Color (0f, 0f, 0f, 1f);
-
+		
 		// reveal spark
+		
+		// player has control
+		freezePlayer = false;
+	}
+
+	public void StartKitchenWires () {
+		// sound fx
+		PlayWiresMusic ();
+
+		// animate stuff before the player has control
 
 		// player has control
 		freezePlayer = false;
+	}
+
+	void PlayWiresMusic() {
+		// play wires sound
+		GameManager.instance.audio.clip = wiresMusic;
+		GameManager.instance.audio.Play ();
 	}
 
 	public void ActivateLight(GameObject light) {
@@ -97,6 +116,7 @@ public class GameManager : MonoBehaviour {
 
 	public void ActivateFan() {
 		// turn on all wind particle renderers
+		Debug.Log ("Activating Fan!");
 		Application.LoadLevel("FanScene");
 	}
 
