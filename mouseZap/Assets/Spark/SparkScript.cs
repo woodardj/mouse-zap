@@ -161,7 +161,7 @@ public class SparkScript : MonoBehaviour {
 		// show the bubble
 		speechBubbleText = message;
 		showSpeechBubble = true;
-		StartCoroutine (HideSpeechBubbleAfterSeconds (timeToDisplay));
+		//StartCoroutine (HideSpeechBubbleAfterSeconds (timeToDisplay));
 	}
 
 	IEnumerator HideSpeechBubbleAfterSeconds(float timeToDisplay) {
