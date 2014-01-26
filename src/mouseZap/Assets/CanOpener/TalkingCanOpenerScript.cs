@@ -34,6 +34,7 @@ public class TalkingCanOpenerScript : MonoBehaviour {
 		yield return new WaitForSeconds(timeToDisplay);
 		//		Debug.Log ("Hiding speech bubble");
 		showSpeechBubble = false;
+		Application.LoadLevel ("MainMenu");
 	}
 	// OnGUI is called once per frame
 	void OnGUI () {

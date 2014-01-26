@@ -14,6 +14,7 @@ public class MenuGUIManager : MonoBehaviour {
 	void OnGUI () {
 
 		GUI.color = Color.green;
+		GUI.skin.button.fontSize = 26;
 
 		if (GUI.Button (new Rect (Screen.width * 0.5f-40f, Screen.height * 0.5f, 80, 40),  "Start")) {
 
