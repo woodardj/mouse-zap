@@ -20,7 +20,8 @@ public class CanOpenerScript : MonoBehaviour {
 	void Update () {
 		if (_dontAllowTurning == true) {
 			// no sfx 
-			audio.Stop();
+			Camera.main.audio.Stop ();
+//			audio.Stop();
 			return;
 		}
 
@@ -46,7 +47,9 @@ public class CanOpenerScript : MonoBehaviour {
 			_canTurnedDegrees += h;
 
 			// play sfx while moving
-			audio.Play();
+			if (Camera.main.audio.isPlaying == false)
+				Camera.main.audio.Play ();
+//			audio.Play();
 
 			// check if we have turned the can 360 degrees and opened it
 			if ((_canTurnedDegrees > 360f) | (_canTurnedDegrees < -360f)) {
@@ -60,7 +63,8 @@ public class CanOpenerScript : MonoBehaviour {
 			}
 		} else {
 			// no sfx 
-			audio.Stop();
+			Camera.main.audio.Stop ();
+//			audio.Stop();
 		}
 
 		if (v != 0f) {

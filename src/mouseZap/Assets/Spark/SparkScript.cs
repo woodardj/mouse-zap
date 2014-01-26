@@ -144,7 +144,8 @@ public class SparkScript : MonoBehaviour {
 				}
 			}
 			// play sfx while moving
-			audio.Play();
+			if (audio.isPlaying == false)
+				audio.Play();
 		} else {
 			// no sfx 
 			audio.Stop();
