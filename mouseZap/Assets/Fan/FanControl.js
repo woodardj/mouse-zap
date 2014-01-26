@@ -57,6 +57,7 @@ public function TalkSuccess(){
 }
 
 function Update () {
+	audio.volume = strength / 100.0;
 	if (Input.GetKey("up")) {
 		strength = Mathf.Clamp( strength + 1 , 0, 100 );
 	} else if(Input.GetKey("down")) {
