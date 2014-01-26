@@ -10,6 +10,9 @@ public class KitchenBackOut : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (Input.GetKey(KeyCode.DownArrow)) {
+			Application.LoadLevel ("CircuitKitchenScene");
+			Debug.Log ("Down key");
+		}
 	}
 }
