@@ -57,7 +57,8 @@ function OnCollisionEnter(collision: Collision){
 			(GameObject.Find("Blades").GetComponent("FanControl") as FanControl).TalkEncourage();
 		}
 	} else {
-		transform.Rotate(Random.insideUnitSphere * .5); // Twitch so they know what's happening.
+		if (Time.timeSinceLevelLoad > .5)
+			transform.Rotate(Random.insideUnitSphere * .5); // Twitch so they know what's happening.
 	}
 	
 	
