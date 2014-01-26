@@ -53,7 +53,7 @@ public function TalkHint2(){
 
 public function TalkSuccess(){
 	yield WaitForSeconds(1.0);
-	ShowSpeechBubble(transform, "Run varmint! Let's chase him!", 5.0);
+	ShowSpeechBubble(transform, "You can run, varmint, but you can't hide!", 5.0);
 }
 
 function Update () {
