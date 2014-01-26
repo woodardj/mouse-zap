@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
+	public static Vector3 sparkPosition; // this is saved between scenes and can be accessed by any scene with a GameManager
+
 	public GameObject floorLivingRoom;
 	public GameObject floorKitchen;
 	public GameObject brokenWire1;
@@ -89,6 +91,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void StartKitchenWires () {
+		// place the spark in the correct position
+		Debug.Log ("GameManager.sparkPosition:" + GameManager.sparkPosition.ToString ());
+		spark.transform.position = GameManager.sparkPosition;
+
 		// sound fx
 		PlayWiresMusic ();
 
@@ -96,6 +102,9 @@ public class GameManager : MonoBehaviour {
 
 		// player has control
 		freezePlayer = false;
+
+		// make sure camera is over the correct room
+
 	}
 
 	public void StartKitchenCanOpener () {
@@ -153,11 +162,17 @@ public class GameManager : MonoBehaviour {
 //		Debug.Log ("MoveCameraToKitchen. new pos:" + newCameraPosition.ToString ());
 		StartCoroutine(MoveObject(Camera.main.transform, Camera.main.transform.position, newCameraPosition, 1.8f));
 	}
+	public void PlaceCameraInKitchen() {
+		Camera.main.transform.position = floorKitchen.transform.position + (Vector3.up * 20f);
+	}
 
 	public void MoveCameraToLivingRoom () {
 		Vector3 newCameraPosition = floorLivingRoom.transform.position + (Vector3.up * 20f);
 //		Debug.Log ("MoveCameraToLivingRoom. new pos:" + newCameraPosition.ToString ());
 		StartCoroutine(MoveObject(Camera.main.transform, Camera.main.transform.position, newCameraPosition, 1.8f));
+	}
+	public void PlaceCameraInLivingRoom() {
+		Camera.main.transform.position = floorLivingRoom.transform.position + (Vector3.up * 20f);
 	}
 
 	// Call the MoveObject coroutine like this:

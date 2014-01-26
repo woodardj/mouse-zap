@@ -33,19 +33,27 @@ public class SparkScript : MonoBehaviour {
 			_collidedWires.Add(other.gameObject);
 		}
 
-		// Triggers when touching objects.
-		if (other.gameObject.CompareTag("Light") == true) {
-			// turn on light if touching object
-			GameManager.instance.ActivateLight(other.gameObject);
-//			Activatable objectScript other.gameObject.GetComponent<Activatable>();
-		} else if (other.gameObject.CompareTag("FanOutlet") == true) {
-			GameManager.instance.ActivateFan();
-		} else if (other.gameObject.CompareTag("CanOpener") == true) {
-			GameManager.instance.ActivateCanOpener();
-		} else if (other.gameObject.CompareTag("LightKitchen") == true) {
-			GameManager.instance.ActivateKitchenLight();
-		} 	
-
+		if (Time.timeSinceLevelLoad > 1.0) {  // This makes sure these don't trigger immediately on level load.
+			// Triggers when touching objects.
+			if (other.gameObject.CompareTag("Light") == true) {
+				// turn on light if touching object
+				GameManager.instance.ActivateLight(other.gameObject);
+	//			Activatable objectScript other.gameObject.GetComponent<Activatable>();
+			} else if (other.gameObject.CompareTag("FanOutlet") == true) {
+				// set the starting position of the spark
+	//			Debug.Log ("transform.position:" + transform.position.ToString ());
+				GameManager.sparkPosition = transform.position;
+				GameManager.instance.ActivateFan();
+			} else if (other.gameObject.CompareTag("CanOpener") == true) {
+				// set the starting position of the spark
+				GameManager.sparkPosition = transform.position;
+				GameManager.instance.ActivateCanOpener();
+			} else if (other.gameObject.CompareTag("LightKitchen") == true) {
+				// set the starting position of the spark
+				GameManager.sparkPosition = transform.position;
+				GameManager.instance.ActivateKitchenLight();
+			} 	
+		}
 
 	}
 //	void OnTriggerStay (Collider other) {
@@ -162,7 +170,7 @@ public class SparkScript : MonoBehaviour {
 		// show the bubble
 		speechBubbleText = message;
 		showSpeechBubble = true;
-		//StartCoroutine (HideSpeechBubbleAfterSeconds (timeToDisplay));
+		StartCoroutine (HideSpeechBubbleAfterSeconds (timeToDisplay));
 	}
 
 	IEnumerator HideSpeechBubbleAfterSeconds(float timeToDisplay) {

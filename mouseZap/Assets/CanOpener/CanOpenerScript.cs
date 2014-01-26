@@ -68,6 +68,10 @@ public class CanOpenerScript : MonoBehaviour {
 			if (_moveOffCanOpenerAccumulator > 40f) {
 				_moveOffCanOpenerAccumulator = 0f;
 				Debug.Log("Leaving Can opener unfinished.");
+
+//				// set the starting position of the spark
+//				Debug.Log ("transform.position:" + transform.position.ToString ());
+//				GameManager.sparkPosition = transform.position;
 				// load previous scene
 				Application.LoadLevel("CircuitKitchenScene");
 			}
@@ -83,7 +87,7 @@ public class CanOpenerScript : MonoBehaviour {
 //		// show the bubble
 //		speechBubbleText = message;
 //		showSpeechBubble = true;
-//		//StartCoroutine (HideSpeechBubbleAfterSeconds (timeToDisplay));
+//		StartCoroutine (HideSpeechBubbleAfterSeconds (timeToDisplay));
 //	}
 //	
 //	IEnumerator HideSpeechBubbleAfterSeconds(float timeToDisplay) {
