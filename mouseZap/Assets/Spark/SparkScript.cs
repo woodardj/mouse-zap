@@ -7,6 +7,7 @@ public class SparkScript : MonoBehaviour {
 	public float movementSpeed = 0.3f;
 
 	public Vector3 speechBubbleOffset = new Vector3(0f, 0f, 0f);
+	public float speechBubbleWidth = 120f;
 	public GUIStyle speechStyle;
 
 	private List<GameObject> _collidedWires; // keeps a list of all wire gameObjects that are currently collided with the spark.
@@ -173,7 +174,8 @@ public class SparkScript : MonoBehaviour {
 	void OnGUI () {
 		if (showSpeechBubble == true) {
 			Vector3 point = Camera.main.WorldToScreenPoint(transform.position + speechBubbleOffset);
-			Rect rect = new Rect (0f, 0f, 100f, 40f);
+			float height = speechStyle.CalcHeight( new GUIContent(speechBubbleText), speechBubbleWidth);
+			Rect rect = new Rect (0f, 0f, speechBubbleWidth, height);
 			rect.x = point.x;
 
 			rect.y = Screen.height - point.y; // bottom left corner set to the 3D point
