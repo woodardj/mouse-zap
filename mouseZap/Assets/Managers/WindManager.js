@@ -6,8 +6,7 @@ var roomZSize : float;
 var density : float = 1.0;
 
 function Start(){
-	//Debug.Log('start!');
-	bootstrapAir();	
+	bootstrapAir();
 }
 
 function Update () {

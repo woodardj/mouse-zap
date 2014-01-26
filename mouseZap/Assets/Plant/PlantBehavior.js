@@ -41,5 +41,5 @@ function death(){
 }
 
 function nextLevel(){
-	Application.LoadLevel("CircuitKitchenScene");
+	Application.LoadLevel(4);
 }
