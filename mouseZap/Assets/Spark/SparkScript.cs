@@ -176,14 +176,14 @@ public class SparkScript : MonoBehaviour {
 	IEnumerator HideSpeechBubbleAfterSeconds(float timeToDisplay) {
 		yield return new WaitForSeconds(timeToDisplay);
 //		Debug.Log ("Hiding speech bubble");
-		showSpeechBubble = false;
+		//showSpeechBubble = false;
 	}
 	// OnGUI is called once per frame
 	void OnGUI () {
 		if (showSpeechBubble == true) {
 			Vector3 point = Camera.main.WorldToScreenPoint(transform.position + speechBubbleOffset);
 			float height = speechStyle.CalcHeight( new GUIContent(speechBubbleText), speechBubbleWidth);
-			Rect rect = new Rect (0f, 0f, speechBubbleWidth, height);
+			Rect rect = new Rect (0, 0f, speechBubbleWidth, height);
 			rect.x = point.x;
 
 			rect.y = Screen.height - point.y; // bottom left corner set to the 3D point
