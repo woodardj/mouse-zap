@@ -17,12 +17,7 @@ public class SpriteAnimation : MonoBehaviour {
 		//Update
 		void Update () { 
 		SetSpriteAnimation(colCount,rowCount,rowNumber,colNumber,totalCells,fps);  
-		//ghettoOffset();
-	}
 
-	void ghettoOffset () {
-		offset = (renderer.material.mainTextureOffset.y > 0) ?  new Vector2 (0, 0) : new Vector2 (0, .5f);
-		Debug.Log (offset.y);
 	}
 		
 	//SetSpriteAnimation
