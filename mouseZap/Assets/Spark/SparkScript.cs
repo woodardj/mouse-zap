@@ -6,7 +6,14 @@ public class SparkScript : MonoBehaviour {
 
 	public float movementSpeed = 0.3f;
 
+	public Vector3 speechBubbleOffset = new Vector3(0f, 0f, 0f);
+	public GUIStyle speechStyle;
+
 	private List<GameObject> _collidedWires; // keeps a list of all wire gameObjects that are currently collided with the spark.
+
+	private bool showSpeechBubble;
+	private string speechBubbleText;
+
 
 	// Use this for initialization
 	void Start () {
@@ -14,6 +21,7 @@ public class SparkScript : MonoBehaviour {
 		this.renderer.enabled = false; // start hidden, animation will reveal the spark.
 //		animation["SpawnSpark"].wrapMode = WrapMode.Once;
 //		animation.Play("SpawnSpark");
+
 	}
 
 	void OnTriggerEnter (Collider other){
@@ -24,13 +32,18 @@ public class SparkScript : MonoBehaviour {
 			_collidedWires.Add(other.gameObject);
 		}
 
-		// turn on light if touching object
+		// Triggers when touching objects.
 		if (other.gameObject.CompareTag("Light") == true) {
+			// turn on light if touching object
 			GameManager.instance.ActivateLight(other.gameObject);
 //			Activatable objectScript other.gameObject.GetComponent<Activatable>();
 		} else if (other.gameObject.CompareTag("FanOutlet") == true) {
 			GameManager.instance.ActivateFan();
-		}
+		} else if (other.gameObject.CompareTag("CanOpener") == true) {
+			GameManager.instance.ActivateCanOpener();
+		} else if (other.gameObject.CompareTag("LightKitchen") == true) {
+			GameManager.instance.ActivateKitchenLight();
+		} 	
 
 
 	}
@@ -46,12 +59,12 @@ public class SparkScript : MonoBehaviour {
 			_collidedWires.Remove(other.gameObject);
 		}
 
-		// turn off light if leaving
+
+		// Triggers when no longer touching objects.
 		if (other.gameObject.CompareTag("Light") == true) {
+			// turn off light if leaving
 			GameManager.instance.DeactivateLight(other.gameObject);
-		} else if (other.gameObject.CompareTag("Light") == true) {
-			GameManager.instance.DeactivateLight(other.gameObject);
-		}
+		} 
 
 		// move camera to next room when passing trigger
 		if (other.gameObject.CompareTag("KitchenCameraTrigger") == true) {
@@ -90,6 +103,7 @@ public class SparkScript : MonoBehaviour {
 			return;
 		}
 
+		// SPARK MOVEMENT
 		float h = Input.GetAxis("Horizontal") * movementSpeed;
 		float v = Input.GetAxis("Vertical") * movementSpeed;
 		if ((h != 0f) | (v != 0f)) {
@@ -140,5 +154,35 @@ public class SparkScript : MonoBehaviour {
 		gameObject.GetComponent<Animator> ().SetBool ("doneSpawning", true);
 		gameObject.renderer.enabled = true;
 	}
+
+
+	// SPEECH BUBBLES
+	public void ShowSpeechBubble(Transform talkingTransform, string message, float timeToDisplay) {
+		// show the bubble
+		speechBubbleText = message;
+		showSpeechBubble = true;
+		StartCoroutine (HideSpeechBubbleAfterSeconds (timeToDisplay));
+	}
+
+	IEnumerator HideSpeechBubbleAfterSeconds(float timeToDisplay) {
+		yield return new WaitForSeconds(timeToDisplay);
+//		Debug.Log ("Hiding speech bubble");
+		showSpeechBubble = false;
+	}
+	// OnGUI is called once per frame
+	void OnGUI () {
+		if (showSpeechBubble == true) {
+			Vector3 point = Camera.main.WorldToScreenPoint(transform.position + speechBubbleOffset);
+			Rect rect = new Rect (0f, 0f, 100f, 40f);
+			rect.x = point.x;
+
+			rect.y = Screen.height - point.y; // bottom left corner set to the 3D point
+//			Debug.Log("point.y:" + point.y.ToString() + "  rect.y:" + rect.y.ToString());
+//			GUI.Label(rect, target.name); // display its name, or other string
+			GUI.Box (rect, speechBubbleText, speechStyle);
+		}
+	}
+
+
 	
 }

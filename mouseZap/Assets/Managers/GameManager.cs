@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour {
 	public bool freezePlayer;
 
 
+	private MenuGUIManager guiManager;
+
+
 	// SINGLETON CODE
 	// s_Instance is used to cache the instance found in the scene so we don't have to look it up every time.
 	private static GameManager s_Instance = null;
@@ -51,7 +54,6 @@ public class GameManager : MonoBehaviour {
 		// fade the floor, so it can be revealed later.
 		floorLivingRoom.renderer.material.color = new Color (0f, 0f, 0f, 0f);
 		floorKitchen.renderer.material.color = new Color (0f, 0f, 0f, 0f);
-
 	}
 	
 	// Update is called once per frame
@@ -73,7 +75,10 @@ public class GameManager : MonoBehaviour {
 		brokenWire1.GetComponent<Animator>().SetBool ("wireBreaking", true);
 		//		floor1.GetComponent<Animator> ().SetBool ("wireBreaking", true);
 		spark.GetComponent<Animator> ().SetBool ("spawning", true);
-		
+
+		// Show speech bubble
+		spark.GetComponent<SparkScript>().ShowSpeechBubble(transform, "Oh no! That mouse is nibbling my wires!", 5.0f);
+
 		// lights go out
 		floorLivingRoom.renderer.material.color = new Color (0f, 0f, 0f, 1f);
 		
@@ -115,13 +120,20 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void ActivateFan() {
-		// turn on all wind particle renderers
-		Debug.Log ("Activating Fan!");
+		// load the fan scene
 		Application.LoadLevel("FanScene");
 	}
 
-	public void DeactivateFan() {
-		// turn off all wind particle renderers
+	public void ActivateCanOpener () {
+		// load the can opener scene
+		Debug.Log("Loading Can Opener Scene");
+		Application.LoadLevel("CanOpenerScene");
+	}
+
+	public void ActivateKitchenLight () {
+		// load the can opener scene
+		Debug.Log("Loading Lighted Kitchen Scene");
+		Application.LoadLevel("LightKitchenScene");
 	}
 
 
@@ -148,7 +160,6 @@ public class GameManager : MonoBehaviour {
 			yield return null; 
 		}
 	}
-
 
 
 }
