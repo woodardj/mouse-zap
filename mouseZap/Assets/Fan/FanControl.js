@@ -1,5 +1,5 @@
 ﻿
-var rotate_speed = 10;
+var rotate_speed = 20;
 var strength = 5;
 var airparticle : GameObject;
 var spawn_delay = .333;

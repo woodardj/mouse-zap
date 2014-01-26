@@ -9,8 +9,8 @@ function Start () {
 }
 
 function Update () {
-	Debug.Log(typeof airparticle);
 	if(airparticle.name != null && inflow_rate > Random.Range(0.0,1.0)){
+		//TODO move this into the room, instead of dead-center.
 		var pos = transform.position;
 		Instantiate(airparticle, pos, Quaternion.identity);
 	}
