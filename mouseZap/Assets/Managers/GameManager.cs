@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour {
 		spark.GetComponent<Animator> ().SetBool ("spawning", true);
 
 		// Show speech bubble
-		spark.GetComponent<SparkScript>().ShowSpeechBubble(transform, "Oh no! That mouse is nibbling my wires!", 5.0f);
+		spark.GetComponent<SparkScript>().ShowSpeechBubble(transform, "Oh no, Lamp! I shall avenge you!", 5.0f);
 
 		// lights go out
 		floorLivingRoom.renderer.material.color = new Color (0f, 0f, 0f, 1f);
