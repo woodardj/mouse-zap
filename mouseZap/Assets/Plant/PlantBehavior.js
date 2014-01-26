@@ -39,3 +39,7 @@ function death(){
 		animation.Play("Death");
 	}
 }
+
+function nextLevel(){
+	Application.LoadLevel("CircuitKitchenScene");
+}
