@@ -36,7 +36,7 @@ function Hint1(){
 
 function Hint2(){
 	Debug.Log("hint2 yielding");
-	yield WaitForSeconds(20);
+	yield WaitForSeconds(15);
 	if(firstBlood){
 		(GameObject.Find("Blades").GetComponent("FanControl") as FanControl).TalkHint2();
 	}
