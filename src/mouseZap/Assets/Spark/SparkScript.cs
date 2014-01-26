@@ -178,7 +178,7 @@ public class SparkScript : MonoBehaviour {
 	IEnumerator HideSpeechBubbleAfterSeconds(float timeToDisplay) {
 		yield return new WaitForSeconds(timeToDisplay);
 //		Debug.Log ("Hiding speech bubble");
-		//showSpeechBubble = false;
+		showSpeechBubble = false;
 	}
 	// OnGUI is called once per frame
 	void OnGUI () {
