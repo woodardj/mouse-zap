@@ -28,6 +28,8 @@ public class SparkScript : MonoBehaviour {
 		if (other.gameObject.CompareTag("Light") == true) {
 			GameManager.instance.ActivateLight(other.gameObject);
 //			Activatable objectScript other.gameObject.GetComponent<Activatable>();
+		} else if (other.gameObject.CompareTag("FanOutlet") == true) {
+			GameManager.instance.ActivateFan();
 		}
 
 
@@ -83,6 +85,8 @@ public class SparkScript : MonoBehaviour {
 		if (GameManager.instance.freezePlayer == true) {
 			// don't allow movement
 			Debug.Log("don't allow movement");
+			// no sfx 
+			audio.Stop();
 			return;
 		}
 
