@@ -29,7 +29,13 @@ public class SparkScript : MonoBehaviour {
 			GameManager.instance.ActivateLight(other.gameObject);
 //			Activatable objectScript other.gameObject.GetComponent<Activatable>();
 		}
+
+
 	}
+//	void OnTriggerStay (Collider other) {
+//
+//	}
+
 	void OnTriggerExit (Collider other){
 //		Debug.Log("OnTriggerExit!");
 
@@ -41,8 +47,18 @@ public class SparkScript : MonoBehaviour {
 		// turn off light if leaving
 		if (other.gameObject.CompareTag("Light") == true) {
 			GameManager.instance.DeactivateLight(other.gameObject);
+		} else if (other.gameObject.CompareTag("Light") == true) {
+			GameManager.instance.DeactivateLight(other.gameObject);
 		}
 
+		// move camera to next room when passing trigger
+		if (other.gameObject.CompareTag("KitchenCameraTrigger") == true) {
+			if (transform.localPosition.x < other.transform.localPosition.x) {
+				GameManager.instance.MoveCameraToKitchen();
+			} else if (transform.localPosition.x > other.transform.localPosition.x) {
+				GameManager.instance.MoveCameraToLivingRoom();
+			}
+		}
 
 		// make sure the spark never leaves all wires.
 		if (_collidedWires.Count == 0) {
@@ -117,7 +133,8 @@ public class SparkScript : MonoBehaviour {
 
 	void sparkHasSpawned () {
 		// stop the spawning animation
-		gameObject.GetComponent<Animator> ().SetBool ("spawning", false);
+		gameObject.GetComponent<Animator> ().SetBool ("doneSpawning", true);
 		gameObject.renderer.enabled = true;
 	}
+	
 }
