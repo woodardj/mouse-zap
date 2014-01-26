@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour {
 	public void ActivateKitchenLight () {
 		// load the can opener scene
 		Debug.Log("Loading Lighted Kitchen Scene");
-		Application.LoadLevel("LightKitchenScene");
+		Application.LoadLevel("LightedKitchenPreWin");
 	}
 
 
