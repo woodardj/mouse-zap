@@ -115,13 +115,20 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void ActivateFan() {
-		// turn on all wind particle renderers
-		Debug.Log ("Activating Fan!");
+		// load the fan scene
 		Application.LoadLevel("FanScene");
 	}
 
-	public void DeactivateFan() {
-		// turn off all wind particle renderers
+	public void ActivateCanOpener () {
+		// load the can opener scene
+		Debug.Log("Loading Can Opener Scene");
+		Application.LoadLevel("CanOpenerScene");
+	}
+
+	public void ActivateKitchenLight () {
+		// load the can opener scene
+		Debug.Log("Loading Lighted Kitchen Scene");
+		Application.LoadLevel("LightKitchenScene");
 	}
 
 

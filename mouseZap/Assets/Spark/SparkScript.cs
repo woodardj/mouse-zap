@@ -24,13 +24,18 @@ public class SparkScript : MonoBehaviour {
 			_collidedWires.Add(other.gameObject);
 		}
 
-		// turn on light if touching object
+		// Triggers when touching objects.
 		if (other.gameObject.CompareTag("Light") == true) {
+			// turn on light if touching object
 			GameManager.instance.ActivateLight(other.gameObject);
 //			Activatable objectScript other.gameObject.GetComponent<Activatable>();
 		} else if (other.gameObject.CompareTag("FanOutlet") == true) {
 			GameManager.instance.ActivateFan();
-		}
+		} else if (other.gameObject.CompareTag("CanOpener") == true) {
+			GameManager.instance.ActivateCanOpener();
+		} else if (other.gameObject.CompareTag("LightKitchen") == true) {
+			GameManager.instance.ActivateKitchenLight();
+		} 	
 
 
 	}
@@ -46,12 +51,12 @@ public class SparkScript : MonoBehaviour {
 			_collidedWires.Remove(other.gameObject);
 		}
 
-		// turn off light if leaving
+
+		// Triggers when no longer touching objects.
 		if (other.gameObject.CompareTag("Light") == true) {
+			// turn off light if leaving
 			GameManager.instance.DeactivateLight(other.gameObject);
-		} else if (other.gameObject.CompareTag("Light") == true) {
-			GameManager.instance.DeactivateLight(other.gameObject);
-		}
+		} 
 
 		// move camera to next room when passing trigger
 		if (other.gameObject.CompareTag("KitchenCameraTrigger") == true) {
