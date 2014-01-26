@@ -22,7 +22,7 @@ function Start () {
 	fansprite = transform.Find("FanSprite").GetComponent("SpriteAnimation");//GetComponentsInChildren.GetComponent("FanControl")
 	//Debug.Log(fansprite.fps);
 	//showSpeechBubble = true;
-	ShowSpeechBubble(transform, "I can feel... the wind!", 5.0);
+	ShowSpeechBubble(transform, "I can feel the... wind?", 5.0);
 	StartCoroutine("Talk1");
 }
 
@@ -39,11 +39,11 @@ function Talk2(){
 
 	ShowSpeechBubble(transform, "I know! I'll knock over that plant.", 5.0);
 
-	StartCoroutine("Talk3");
+	//StartCoroutine("Talk3");
 }
 
-function Talk3(){
-
+public function TalkEncourage(){
+	ShowSpeechBubble(transform, "Yes! Keep it up!", 5.0);
 }
 
 function Update () {

@@ -4,9 +4,11 @@ var hitPoints = 100;
 var damageThreshold = 30; //Determined empirically.
 
 private var alive;
+private var firstBlood;
 
 function Start () {
 	alive = true;
+	firstBlood = true;
 }
 
 function Update () {
@@ -20,9 +22,17 @@ function OnCollisionEnter(collision: Collision){
 		hitPoints -= (collision.relativeVelocity.magnitude / 2);
 		transform.Rotate(Vector3(0, -5, 0));
 
-		Debug.Log('hit!');
+		//Debug.Log('hit!');
 		Debug.Log(hitPoints);
+		if( firstBlood ){
+			firstBlood = false;
+			//Debug.Log(GameObject.Find("Blades").GetComponent("FanControl"));
+			//fanScript.Talk1();
+			(GameObject.Find("Blades").GetComponent("FanControl") as FanControl).TalkEncourage();
+		}
 	}
+	
+	
 	
 	if(hitPoints <= 0){
 		Debug.Log("WINNER");
