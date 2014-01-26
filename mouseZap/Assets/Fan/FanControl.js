@@ -8,7 +8,7 @@ var speechBubbleOffset : Vector3 = Vector3(0f, 0f, 0f);
 var speechBubbleWidth : float = 120f ;
 var speechStyle : GUIStyle;
 
-private var speechBubbleText;
+private var speechBubbleText : String;
 
 private var time_since_spawn;
 private var fansprite;
@@ -21,7 +21,29 @@ function Start () {
 	time_since_spawn = 0;
 	fansprite = transform.Find("FanSprite").GetComponent("SpriteAnimation");//GetComponentsInChildren.GetComponent("FanControl")
 	//Debug.Log(fansprite.fps);
-	showSpeechBubble = true;
+	//showSpeechBubble = true;
+	ShowSpeechBubble(transform, "I can feel... the wind!", 5.0);
+	StartCoroutine("Talk1");
+}
+
+function Talk1(){
+	yield WaitForSeconds(5.5);
+
+	ShowSpeechBubble(transform, "Maybe I can scare off that mouse somehow", 5.0);
+
+	StartCoroutine("Talk2");
+}
+
+function Talk2(){
+	yield WaitForSeconds(5.5);
+
+	ShowSpeechBubble(transform, "I know! I'll knock over that plant.", 5.0);
+
+	StartCoroutine("Talk3");
+}
+
+function Talk3(){
+
 }
 
 function Update () {
@@ -58,12 +80,25 @@ function Update () {
 	}
 }
 
+// SPEECH BUBBLES
+function ShowSpeechBubble(talkingTransform : Transform, message : String, timeToDisplay : float) {
+	// show the bubble
+	speechBubbleText = message;
+	showSpeechBubble = true;
+	StartCoroutine (HideSpeechBubbleAfterSeconds (timeToDisplay));
+}
+
+function HideSpeechBubbleAfterSeconds(timeToDisplay : float) {
+	yield WaitForSeconds(timeToDisplay);
+//		Debug.Log ("Hiding speech bubble");
+	showSpeechBubble = false;
+}
+
 
 function OnGUI () {
 	if (showSpeechBubble == true) {
-	speechBubbleText = "Hi there";
 		var point = Camera.main.WorldToScreenPoint(transform.position + speechBubbleOffset);
-		var height = 50; //speechStyle.CalcHeight( GUIContent(speechBubbleText), speechBubbleWidth);
+		var height = speechStyle.CalcHeight( GUIContent(speechBubbleText), speechBubbleWidth);
 		var rect = Rect (0f, 0f, speechBubbleWidth, height);
 		rect.x = point.x;
 
