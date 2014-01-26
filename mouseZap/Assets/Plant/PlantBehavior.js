@@ -5,16 +5,42 @@ var damageThreshold = 30; //Determined empirically.
 
 private var alive;
 private var firstBlood;
+//private var time_since_birth;
 
 function Start () {
 	alive = true;
 	firstBlood = true;
+	//time_since_birth = 0.0;
+	StartCoroutine("Hint1");
 }
 
 function Update () {
  	//Debug.Log("updating");
  	//if(Input.GetKey("space")){
  	//}
+ 	//time_since_birth += Time.deltaTime;
+ 	
+ 	//if(time_since_birth > 30.0 && firstBlood = false){
+ 	//	(GameObject.Find("Blades").GetComponent("FanControl") as FanControl).TalkEncourage();
+ 	//}
+}
+
+function Hint1(){
+	Debug.Log("hint1 yielding");
+	yield WaitForSeconds(20);
+	if(firstBlood){
+		(GameObject.Find("Blades").GetComponent("FanControl") as FanControl).TalkHint1();
+	}
+	StartCoroutine("Hint2");
+}
+
+function Hint2(){
+	Debug.Log("hint2 yielding");
+	yield WaitForSeconds(20);
+	if(firstBlood){
+		(GameObject.Find("Blades").GetComponent("FanControl") as FanControl).TalkHint2();
+	}
+	//StartCoroutine("Hint2");
 }
 
 function OnCollisionEnter(collision: Collision){
@@ -30,6 +56,8 @@ function OnCollisionEnter(collision: Collision){
 			//fanScript.Talk1();
 			(GameObject.Find("Blades").GetComponent("FanControl") as FanControl).TalkEncourage();
 		}
+	} else {
+		transform.Rotate(Random.insideUnitSphere * .5); // Twitch so they know what's happening.
 	}
 	
 	
