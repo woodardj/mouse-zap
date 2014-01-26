@@ -5,23 +5,37 @@ var airparticle : GameObject;
 var spawn_delay = .333;
 
 private var time_since_spawn;
+private var fansprite;
+private var rotation_bounds = [-0.75, 0.17];
 
 function Start () {
-	Debug.Log("hi");
+	//Debug.Log("hi");
 	time_since_spawn = 0;
+	fansprite = transform.Find("FanSprite").GetComponent("SpriteAnimation");//GetComponentsInChildren.GetComponent("FanControl")
+	//Debug.Log(fansprite.fps);
 }
 
 function Update () {
-Debug.Log('updating');
 	if (Input.GetKey("up")) {
 		strength = Mathf.Clamp( strength + 1 , 0, 100 );
-	}else if(Input.GetKey("down")) {
+	} else if(Input.GetKey("down")) {
 		strength = Mathf.Clamp( strength - 1 , 0, 100 );
+	}
+	
+	if (strength == 0){
+		fansprite.fps = 0;
+	} else {
+		fansprite.fps = Mathf.CeilToInt(strength / 10) + 5;
 	}
 	
 	if (Input.GetKey("left") || Input.GetKey("right")) {
 		if (Input.GetKey("left")) var dir = -1; else dir = 1;
-		transform.Rotate( dir * rotate_speed * Vector3.up * Time.deltaTime);
+		if( //This got ugly. Sorry for partying. --jw
+			(transform.rotation.y > rotation_bounds[0] || dir == 1) && //inside left bound or turning right
+			(transform.rotation.y < rotation_bounds[1] || dir == -1))  //inside right bound or turning left
+		{
+			transform.Rotate( dir * rotate_speed * Vector3.up * Time.deltaTime);
+		}
 	}
 	
 	time_since_spawn += Time.deltaTime;
