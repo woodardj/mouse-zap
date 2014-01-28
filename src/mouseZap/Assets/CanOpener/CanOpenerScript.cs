@@ -6,6 +6,11 @@ public class CanOpenerScript : MonoBehaviour {
 	public float movementSpeed = 1.0f;
 	public Transform canToOpen;
 
+	public GameObject canOpenerSoundObject;
+
+	public AudioClip mouseCaughtAudioClip; 
+	public AudioClip canOpenerAudioClip;
+
 	private bool _dontAllowTurning;
 
 	private float _canTurnedDegrees;
@@ -20,7 +25,7 @@ public class CanOpenerScript : MonoBehaviour {
 	void Update () {
 		if (_dontAllowTurning == true) {
 			// no sfx 
-			Camera.main.audio.Stop ();
+			canOpenerSoundObject.audio.Stop ();
 //			audio.Stop();
 			return;
 		}
@@ -47,9 +52,9 @@ public class CanOpenerScript : MonoBehaviour {
 			_canTurnedDegrees += h;
 
 			// play sfx while moving
-			if (Camera.main.audio.isPlaying == false)
-				Camera.main.audio.Play ();
-//			audio.Play();
+			if (canOpenerSoundObject.audio.isPlaying == false)
+				canOpenerSoundObject.audio.Play ();
+//				audio.Play();
 
 			// check if we have turned the can 360 degrees and opened it
 			if ((_canTurnedDegrees > 360f) | (_canTurnedDegrees < -360f)) {
@@ -57,21 +62,27 @@ public class CanOpenerScript : MonoBehaviour {
 				Debug.Log("Can opened! Good Job.");
 				_dontAllowTurning = true;
 				_canTurnedDegrees = 0f; // reset so this doesn't run again
+		
+//				audio.Stop(); // stop playing music
+//				audio.clip = mouseCaughtAudioClip;
+//				audio.Play(); // start playing mouse caught sound
+				Camera.main.audio.Stop(); // stop playing music
+				Camera.main.audio.PlayOneShot(mouseCaughtAudioClip); // start playing mouse caught sound
 
-				// load next scene
-				Application.LoadLevel("LightedKitchenWin");
+				// load next scene after 8 seconds
+				StartCoroutine(LoadKitchenAfterSeconds(11f));
 			}
 		} else {
 			// no sfx 
-			Camera.main.audio.Stop ();
-//			audio.Stop();
+			canOpenerSoundObject.audio.Stop ();
+//			audio.Stop ();
 		}
 
 		if (v != 0f) {
 			// move off the can opener if pressed long enough
 			_moveOffCanOpenerAccumulator += Mathf.Abs(v);
 
-			if (_moveOffCanOpenerAccumulator > 40f) {
+			if (_moveOffCanOpenerAccumulator > 15f) {
 				_moveOffCanOpenerAccumulator = 0f;
 				Debug.Log("Leaving Can opener unfinished.");
 
@@ -82,5 +93,11 @@ public class CanOpenerScript : MonoBehaviour {
 				Application.LoadLevel("CircuitKitchenScene");
 			}
 		}
+	}
+
+	IEnumerator LoadKitchenAfterSeconds(float timeToDisplay) {
+		yield return new WaitForSeconds(timeToDisplay);
+		//		Debug.Log ("Hiding speech bubble");
+		Application.LoadLevel("LightedKitchenWin");
 	}
 }

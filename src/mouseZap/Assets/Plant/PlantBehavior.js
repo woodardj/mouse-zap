@@ -80,6 +80,9 @@ function death(){
 }
 
 function scareMouse(){
+	// play plant falling sound effect
+	audio.Play();
+
 	(GameObject.Find("Blades").GetComponent("FanControl") as FanControl).TalkSuccess();
 	GameObject.Find("Mouse").animation.Play("MouseEscape");
 }
